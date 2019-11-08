@@ -13,30 +13,27 @@ import VerifyEmail from '../views/VerifyEmail';
 import store from '../store';
 
 const requireAuthenticated = (to, from, next) => {
-  store.dispatch('auth/initialize')
-    .then(() => {
-      if (!store.getters['auth/isAuthenticated']) {
-        next('/login');
-      } else {
-        next();
-      }
-    });
+  store.dispatch('auth/initialize').then(() => {
+    if (!store.getters['auth/isAuthenticated']) {
+      next('/login');
+    } else {
+      next();
+    }
+  });
 };
 
 const requireUnauthenticated = (to, from, next) => {
-  store.dispatch('auth/initialize')
-    .then(() => {
-      if (store.getters['auth/isAuthenticated']) {
-        next('/home');
-      } else {
-        next();
-      }
-    });
+  store.dispatch('auth/initialize').then(() => {
+    if (store.getters['auth/isAuthenticated']) {
+      next('/home');
+    } else {
+      next();
+    }
+  });
 };
 
 const redirectLogout = (to, from, next) => {
-  store.dispatch('auth/logout')
-    .then(() => next('/login'));
+  store.dispatch('auth/logout').then(() => next('/login'));
 };
 
 Vue.use(Router);
@@ -46,46 +43,46 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/home',
+      redirect: '/home'
     },
     {
       path: '/about',
-      component: About,
-      beforeEnter: requireAuthenticated,
+      component: About
+      // beforeEnter: requireAuthenticated,
     },
     {
       path: '/home',
-      component: Home,
-      beforeEnter: requireAuthenticated,
+      component: Home
+      // beforeEnter: requireAuthenticated,
     },
     {
       path: '/password_reset',
-      component: PasswordReset,
+      component: PasswordReset
     },
     {
       path: '/password_reset/:uid/:token',
-      component: PasswordResetConfirm,
+      component: PasswordResetConfirm
     },
     {
       path: '/register',
-      component: Register,
+      component: Register
     },
     {
       path: '/register/:key',
-      component: VerifyEmail,
+      component: VerifyEmail
     },
     {
       path: '/login',
-      component: Login,
-      beforeEnter: requireUnauthenticated,
+      component: Login
+      // beforeEnter: requireUnauthenticated
     },
     {
-      path: '/logout',
-      beforeEnter: redirectLogout,
+      path: '/logout'
+      // beforeEnter: redirectLogout
     },
     {
       path: '*',
-      component: Lost,
-    },
-  ],
+      component: Lost
+    }
+  ]
 });
