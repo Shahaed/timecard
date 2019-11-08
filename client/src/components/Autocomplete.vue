@@ -4,7 +4,7 @@
       <!-- <b>Select project:</b> -->
       <!-- {{ selected }} -->
     <!-- </p> -->
-    <!-- <b-field label="Select project"> -->
+    <b-field label="Select project">
       <b-autocomplete
         rounded
         v-model="name"
@@ -23,23 +23,21 @@
 export default {
   data() {
     return {
-      data: ["Deere", "Fedex", "IDT", "SIL", "EFS"],
-      name: "",
-      selected: null
+      data: ['Deere', 'Fedex', 'IDT', 'SIL', 'EFS'],
+      name: '',
+      selected: null,
     };
   },
   computed: {
     filteredDataArray() {
-      return this.data.filter(option => {
-        return (
-          option
-            .toString()
-            .toLowerCase()
-            .indexOf(this.name.toLowerCase()) >= 0
-        );
-      });
-    }
-  }
+      return this.data.filter(option => (
+        option
+          .toString()
+          .toLowerCase()
+          .indexOf(this.name.toLowerCase()) >= 0
+      ));
+    },
+  },
 };
 </script>
 

@@ -1,91 +1,51 @@
 
 <template>
   <div>
-    <hr />
-    <form action="#" method="POST"></form>
-    <div class="container">
-      <div class="rows">
-        <div class="row is-full"></div>
-        <div class="row is-full">
-          <div class="columns">
-            <div class="column is-5">
-              <b-autocomplete
-                rounded
-                v-model="name"
-                :data="filteredDataArray"
-                placeholder="e.g. Deere"
-                icon="magnify"
-                @select="option => selected = option"
-              >
-                <template slot="empty">No results found</template>
-              </b-autocomplete>
-            </div>
-            <div class="column is-3">
-              <b-clockpicker
-                rounded
-                placeholder="Click to select..."
-                icon="clock"
-                v-model="start_time"
-              ></b-clockpicker>
-            </div>
-            <div class="column is-3">
-              <b-clockpicker
-                rounded
-                placeholder="Click to select..."
-                icon="clock"
-                v-model="time_end"
-              ></b-clockpicker>
-            </div>
-            <div class="column is-3">
-              <b-button @click="clickMe()">Submit</b-button>
-            </div>
-          </div>
-        </div>
-        <div class="row is-full"></div>
+    <Topbar/>
+    <div class="columns left">
+      <div class="column is-one-fifth">
+        <Navbar/>
+      </div>
+      <div class="column is-four-fifths">
+        <SubmitTime/>
+        <br>
+        <h1>{{info}}</h1>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Autocomplete from "../components/Autocomplete";
-export default {
-  name: "home",
-  components: {
-    Autocomplete
-  },
+import SubmitTime from '../views/SubmitTime';
+import Navbar from '../components/Navbar'
+import Topbar from '../components/Topbar'
+import axios from 'axios'
 
+export default {
+  name: 'home',
+  components: {
+    SubmitTime,
+    Navbar,
+    Topbar
+  },
   data() {
     return {
-      tasks: [],
-      data: ["Deere", "Fedex", "IDT", "SIL", "EFS"],
-      name: "",
-      start_time: "",
-      time_end: "",
-      selected: null
-    };
-  },
-  methods: {
-    clickMe() {
-      this.tasks.push({
-        deliverable: this.name,
-        st: this.start_time,
-        et: this.time_end
-      });
-      console.log(this.tasks);
+      info: "Waiting..."
     }
   },
-  computed: {
-    filteredDataArray() {
-      return this.data.filter(option => {
-        return (
-          option
-            .toString()
-            .toLowerCase()
-            .indexOf(this.name.toLowerCase()) >= 0
-        );
-      });
-    }
+  mounted () {
+    axios
+      .get('https://368876ac.ngrok.io/')
+      .then(response => (this.info = response.data[0]))
   }
+
 };
 </script>
+
+<style>
+.left {
+  margin-top: .5%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+</style>
