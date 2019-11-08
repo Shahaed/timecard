@@ -43,46 +43,46 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/home'
+      redirect: '/home',
     },
     {
       path: '/about',
-      component: About
+      component: About,
       // beforeEnter: requireAuthenticated,
     },
     {
       path: '/home',
-      component: Home
+      component: Home,
       // beforeEnter: requireAuthenticated,
     },
     {
       path: '/password_reset',
-      component: PasswordReset
+      component: PasswordReset,
     },
     {
       path: '/password_reset/:uid/:token',
-      component: PasswordResetConfirm
+      component: PasswordResetConfirm,
     },
     {
       path: '/register',
-      component: Register
+      component: Register,
     },
     {
       path: '/register/:key',
-      component: VerifyEmail
+      component: VerifyEmail,
     },
     {
       path: '/login',
-      component: Login
+      component: Login,
       // beforeEnter: requireUnauthenticated
     },
     {
-      path: '/logout'
+      path: '/logout',
       // beforeEnter: redirectLogout
     },
     {
       path: '*',
-      component: Lost
-    }
-  ]
+      component: Lost,
+    },
+  ],
 });
